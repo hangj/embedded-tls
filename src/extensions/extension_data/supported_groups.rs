@@ -16,12 +16,30 @@ pub enum NamedGroup {
     X25519,
     X448,
 
+    /// https://github.com/rustls/rustls/blob/99f2358cae2954837dbb866faf6727de75489ab9/rustls/src/crypto/kx/mod.rs#L542
+    /// 
+    /// <https://www.iana.org/go/rfc8734>
+    brainpoolP256r1tls13,
+    /// <https://www.iana.org/go/rfc8734>
+    brainpoolP384r1tls13,
+    /// <https://www.iana.org/go/rfc8734>
+    brainpoolP512r1tls13,
+    /// <https://www.iana.org/go/rfc8998>
+    curveSM2,
+
     /* Finite Field Groups (DHE) */
     Ffdhe2048,
     Ffdhe3072,
     Ffdhe4096,
     Ffdhe6144,
     Ffdhe8192,
+
+    /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+    MLKEM512,
+    /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+    MLKEM768,
+    /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+    MLKEM1024,
 
     /* Post-quantum hybrid groups */
     X25519MLKEM768,
@@ -39,11 +57,27 @@ impl NamedGroup {
             0x001D => Some(Self::X25519),
             0x001E => Some(Self::X448),
 
+            /// <https://www.iana.org/go/rfc8734>
+            0x001f => Some(Self::brainpoolP256r1tls13),
+            /// <https://www.iana.org/go/rfc8734>
+            0x0020 => Some(Self::brainpoolP384r1tls13),
+            /// <https://www.iana.org/go/rfc8734>
+            0x0021 => Some(Self::brainpoolP512r1tls13),
+            /// <https://www.iana.org/go/rfc8998>
+            0x0029 => Some(Self::curveSM2),
+
             0x0100 => Some(Self::Ffdhe2048),
             0x0101 => Some(Self::Ffdhe3072),
             0x0102 => Some(Self::Ffdhe4096),
             0x0103 => Some(Self::Ffdhe6144),
             0x0104 => Some(Self::Ffdhe8192),
+
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            0x0200 => Some(Self::MLKEM512),
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            0x0201 => Some(Self::MLKEM768),
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            0x0202 => Some(Self::MLKEM1024),
 
             0x11EB => Some(Self::SecP256r1MLKEM768),
             0x11EC => Some(Self::X25519MLKEM768),
@@ -65,11 +99,27 @@ impl NamedGroup {
             Self::X25519 => 0x001D,
             Self::X448 => 0x001E,
 
+            /// <https://www.iana.org/go/rfc8734>
+            Self::brainpoolP256r1tls13 => 0x001f,
+            /// <https://www.iana.org/go/rfc8734>
+            Self::brainpoolP384r1tls13 => 0x0020,
+            /// <https://www.iana.org/go/rfc8734>
+            Self::brainpoolP512r1tls13 => 0x0021,
+            /// <https://www.iana.org/go/rfc8998>
+            Self::curveSM2 => 0x0029,
+
             Self::Ffdhe2048 => 0x0100,
             Self::Ffdhe3072 => 0x0101,
             Self::Ffdhe4096 => 0x0102,
             Self::Ffdhe6144 => 0x0103,
             Self::Ffdhe8192 => 0x0104,
+
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            Self::MLKEM512 => 0x0200,
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            Self::MLKEM768 => 0x0201,
+            /// <https://datatracker.ietf.org/doc/draft-ietf-tls-mlkem/>
+            Self::MLKEM1024 => 0x0202,
 
             Self::SecP256r1MLKEM768 => 0x11EB,
             Self::X25519MLKEM768 => 0x11EC,
